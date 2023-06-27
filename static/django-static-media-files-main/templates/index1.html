@@ -1,0 +1,115 @@
+<!-- index1.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Travel Modes in Directions</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}">
+  <script src="{% static 'main.js' %}"></script>
+</head>
+
+<body>
+
+  <body>
+    <div class="div1">
+        <div class="div2">
+          <!-- <h5>2</h5> -->
+          <form method="post">
+            {% csrf_token %}
+           <div class="div4">
+              <div class="from">
+                <input type="text" id="from"  name="from" placeholder="origin" value="{{ s }}">
+              </div>
+              <div class="to">
+                <input type="text" id="to"  name="to" placeholder="destination" value="{{ r }}">
+              </div>
+            </div>
+
+            <div>
+              <button id="startBtn">Start</button>
+            </div>
+
+          </form>
+
+
+           <div class="ezew">
+            <h1>EzeeWay</h1>
+           </div>
+           <div class="div5">
+            <b>Mode of travel</b>
+            <select name="" id="mode">
+              <option value="DRIVING">Driving</option>
+              <option value="WALKING">Walking</option>
+              <option value="TRANSIT">Transit</option>
+            </select>
+           </div>
+           <div class="addObs">
+            <a  href="{% url 'add' %}">
+              <button id="add">add details about obstacles</button>
+            </a>
+           </div>
+           <div class="disttimedisp">
+            <h4 class="TimeRequired"></h4>
+            <h4 class="km"></h4>
+            <h4 class="live"></h4>
+           </div>
+        </div>
+        <div id="map"></div>
+
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtA_cSETT5UZ6NowGM3wHVowyEbB4_lhg&libraries=places&callback=initMap" async></script>
+  <script>
+    window.onload = function() {
+      // Get the necessary data
+      const selectedMode = document.getElementById("mode").value;
+      const origin = document.getElementById("from").value;
+      const destination = document.getElementById("to").value;
+
+      // Call the calculateAndDisplayRoute function
+      calculateAndDisplayRoute(selectedMode, origin, destination);
+    };
+
+    function calculateAndDisplayRoute(selectedMode, origin, destination) {
+      const directionsService = new google.maps.DirectionsService();
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+
+      directionsRenderer.setMap(new google.maps.Map(document.getElementById("map")));
+
+      directionsService.route(
+        {
+          origin: origin,
+          destination: destination,
+          travelMode: google.maps.TravelMode[selectedMode],
+        },
+        (response, status) => {
+          if (status === "OK") {
+            directionsRenderer.setDirections(response);
+
+            // Display time required and distance
+            const route = response.routes[0];
+            const timeRequired = route.legs[0].duration.text;
+            const distance = route.legs[0].distance.text;
+
+            document.querySelector(".TimeRequired").textContent = "Time Required: " + timeRequired;
+            document.querySelector(".km").textContent = "Distance: " + distance;
+          } else {
+            window.alert("Direction request failed: " + status);
+          }
+        }
+      );
+    }
+  </script>
+
+  {% if obst %}
+  <script>
+    alert("waring obstale present at {{ obst|safe }}");
+  </script>
+  {% endif %}
+  
+
+</body>
+
+</html>

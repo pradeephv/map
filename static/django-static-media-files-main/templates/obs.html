@@ -1,0 +1,43 @@
+<!--    AIzaSyCtA_cSETT5UZ6NowGM3wHVowyEbB4_lhg -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Travel Modes in Directions</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src=" {% static 'main.js' %}"></script>
+  </head>
+  <body>
+
+   
+    
+
+       <form method="post">
+            {% csrf_token %} 
+      <div>
+        <div>
+            <label>where</label>
+          <input type="text" id="where" name="where" placeholder="place">
+        </div>
+        <div>
+            <label>route between</label>
+          <input type="text" id="point1" name="point1" placeholder="place">
+        
+          <input type="text" id="point2" name="point2" placeholder="place">
+        </div>
+      </div>
+      
+
+      
+      <button id="">Submit</button>
+     </form>
+
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+   
+  </body>
+</html>
+
