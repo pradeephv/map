@@ -59,10 +59,17 @@ def profile(request):
         r1=r.lower()
         r=r1.split(',',1)
         r= r[0].strip()
+        print(r +" "+s) 
+
         
         obstacles = Obstacle.objects.filter(destination_address=r, source_address=s)
         if not obstacles.exists():
             obstacles = Obstacle.objects.filter(destination_address=s, source_address=r)
+        if not obstacles.exists():
+            obstacles = Obstacle.objects.filter(destination_address=s2, source_address=r2)
+        if not obstacles.exists():
+            obstacles = Obstacle.objects.filter(destination_address=r2, source_address=s2)
+            
         obst_locations=[]
         if obstacles.exists():
             obst_locations = [obstacle.where for obstacle in obstacles]
