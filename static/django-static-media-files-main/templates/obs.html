@@ -2,42 +2,53 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-
-  <head>
-    <title>Travel Modes in Directions</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <script src=" {% static 'main.js' %}"></script>
-  </head>
-  <body>
-
-   
-    
-
-       <form method="post">
-            {% csrf_token %} 
-      <div>
-        <div>
-            <label>where</label>
-          <input type="text" id="where" name="where" placeholder="place">
-        </div>
-        <div>
-            <label>route between</label>
-          <input type="text" id="point1" name="point1" placeholder="place">
-        
-          <input type="text" id="point2" name="point2" placeholder="place">
-        </div>
+<head>
+  <title>Travel Modes in Directions</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtA_cSETT5UZ6NowGM3wHVowyEbB4_lhg&libraries=places"></script>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}">
+  <script src="{% static 'main.js' %}"></script>
+  <style>
+    body {
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+    }
+    .btn-submit {
+      background-color: #007bff;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form method="post">
+      {% csrf_token %} 
+      <div class="form-group">
+        <label for="where">Destination</label>
+        <input type="text" id="where" name="where" class="form-control" placeholder="Place">
       </div>
-      
+      <div class="form-group">
+        <label for="point1">Route between</label>
+        <input type="text" id="point1" name="point1" class="form-control" placeholder="Place">
+        <input type="text" id="point2" name="point2" class="form-control" placeholder="Place">
+      </div>
+      <button type="submit" class="btn btn-submit">Submit</button>
+    </form>
+  </div>
 
-      
-      <button id="">Submit</button>
-     </form>
-
-
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-   
-  </body>
+  <script>
+    // Initialize the Google Places Autocomplete for the input fields
+    google.maps.event.addDomListener(window, 'load', function () {
+      var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById('where'));
+      var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('point1'));
+      var autocomplete3 = new google.maps.places.Autocomplete(document.getElementById('point2'));
+    });
+  </script>
+</body>
 </html>
-

@@ -30,6 +30,7 @@ def register_user(request):
 	if request.method =='POST':
 		form = SignUpForm(request.POST)
 		if form.is_valid():
+			print("yes")
 			form.save()
 			username = form.cleaned_data['username']
 			password = form.cleaned_data['password1']
@@ -38,6 +39,7 @@ def register_user(request):
 			messages.success(request, ('Youre now registered'))
 			return redirect('login')
 	else: 
+		print("no")
 		form = SignUpForm() 
 
 	context = {'form': form}
