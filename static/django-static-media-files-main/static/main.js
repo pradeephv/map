@@ -1,11 +1,31 @@
-// Initialize the map asynchronously
-function initMap() {
+// Get user's live location and zoom in on it when the page is loaded
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const userLatLng = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      initMap(userLatLng);
+    },
+    () => {
+      console.log("Geolocation failed");
+      initMap();
+    }
+  );
+} else {
+  console.log("Geolocation not supported");
+  initMap();
+}
+
+// Initialize the map
+function initMap(userLatLng) {
   const directionsRenderer = new google.maps.DirectionsRenderer();
   const directionsService = new google.maps.DirectionsService();
 
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 14,
-    center: { lat: 37.77, lng: -133.1447 },
+    center: userLatLng ? userLatLng : { lat: 37.77, lng: -133.1447 },
   });
 
   directionsRenderer.setMap(map);
@@ -32,8 +52,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   const origin = document.getElementById("from").value;
   const destination = document.getElementById("to").value;
 
-  console.log(origin)
-  console.log(destination)
+  console.log(origin);
+  console.log(destination);
   directionsService.route(
     {
       origin: origin,

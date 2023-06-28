@@ -23,7 +23,7 @@ def login_user (request):
 			messages.success(request,('Error logging in'))
 			return redirect('login') #re routes to login page upon unsucessful login
 	else:
-		return render(request, 'login.html', {})
+		return render(request, 'loginuser.html', {})
 
  
 def register_user(request):
