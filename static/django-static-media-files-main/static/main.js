@@ -1,4 +1,3 @@
-// Initialize the map asynchronously
 function initMap() {
   const directionsRenderer = new google.maps.DirectionsRenderer();
   const directionsService = new google.maps.DirectionsService();
@@ -27,7 +26,6 @@ function initMap() {
 }
 
 // Calculate and display the route
-
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   const selectedMode = document.getElementById("mode").value;
   const origin = document.getElementById("from").value;
