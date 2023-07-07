@@ -1,0 +1,69 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Travel Modes in Directions</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}">
+    <script src=" {% static 'main.js' %}"></script>
+  </head>
+
+
+  
+
+  <body>
+    <div class="div1">
+        <div class="div2">
+          <!-- <h5>2</h5> -->
+          <form method="post">
+            {% csrf_token %}
+           <div class="div4">
+              <div class="from">
+                <input type="text" id="from" name="from" placeholder="Source">
+              </div>
+              <div class="to">
+                <input type="text" id="to" name="to" placeholder="Destination">
+              </div>
+            </div>
+
+            <div class="div5">
+              <b>Mode of travel</b>
+              <select name="" id="mode">
+                <option value="DRIVING">Driving</option>
+                <option value="WALKING">Walking</option>
+                <option value="TRANSIT">Transit</option>
+              </select>
+             </div>
+
+            <div>
+              <button id="startBtn">Start</button>
+            </div>
+
+          </form>
+
+
+           <div class="ezew">
+            <h1>EzeeWay</h1>
+           </div>
+         
+           <div class="disttimedisp">
+            <h4 class="TimeRequired"></h4>
+            <h4 class="km"></h4>
+            <h4 class="live"></h4>
+           </div>
+        </div>
+        <div id="map"></div>
+    </div>
+  
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtA_cSETT5UZ6NowGM3wHVowyEbB4_lhg&libraries=places&callback=initMap" async></script>
+    <script src="main.js"></script>
+  
+  </body>
+</html>
+
+
+
+
